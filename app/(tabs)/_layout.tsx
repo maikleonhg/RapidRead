@@ -10,7 +10,7 @@ export default function TabLayout() {
   return (
     <Tabs
     screenOptions={{
-      tabBarActiveTintColor: '#33c7ff', // Color azul para la pestaña activa
+      tabBarActiveTintColor: '#006D77', // Color azul para la pestaña activa
       tabBarInactiveTintColor: 'gray', // Color gris para las pestañas inactivas
       tabBarStyle: {
         backgroundColor: 'white', // Fondo blanco para la barra de navegación
