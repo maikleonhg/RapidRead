@@ -9,7 +9,7 @@ export default function HomeScreen() {
     <View style={styles.titleContainer}>
       <Link href={"/games/examen"} asChild>
           <Pressable>
-           <HomeCard title="Examen PPM" description="Mide cuantas palabras lees por minuto." style={styles.examCard} image={require('../../assets/games/exercise2.jpg')} imagePosition="top"/>
+           <HomeCard title="Examen PPM" description="Mide cuantas palabras lees por minuto." style={styles.examCard} image={require('../../assets/games/exercise1.jpg')} imagePosition="top"/>
           </Pressable>
       </Link>
             <HomeCard title="Practica Diaria" description="Realiza una seccion de ejercicios." image={require('../../assets/images/reloj.jpg')}/>
