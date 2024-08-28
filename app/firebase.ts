@@ -1,25 +1,43 @@
-// firebase.ts
-import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
-import { getFirestore, Firestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, getDocs } from 'firebase/firestore';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
+import { getAuth, Auth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { getFirestore, Firestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot} from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';  // Importa el módulo Platform
 
 // Configuración de Firebase - Usa los valores de tu proyecto
 const firebaseConfig = {
-  apiKey: 'AIzaSyC-JohXtcB6_6NihTR_hflXUtSeCjQWfz4',
-  authDomain: 'rapidread-b3032.firebaseapp.com',
-  projectId: 'rapidread-b3032',
-  storageBucket: 'rapidread-b3032.appspot.com',
-  messagingSenderId: '893415538236',
-  appId: '1:893415538236:web:16f9d14605151c6da00d39'
+  apiKey: "AIzaSyC-JohXtcB6_6NihTR_hflXUtSeCjQWfz4",
+  authDomain: Constants.manifest?.extra?.FIREBASE_AUTH_DOMAIN,
+  projectId: Constants.manifest?.extra?.FIREBASE_PROJECT_ID,
+  storageBucket: Constants.manifest?.extra?.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: Constants.manifest?.extra?.FIREBASE_MESSAGING_SENDER_ID,
+  appId: Constants.manifest?.extra?.FIREBASE_APP_ID,
 };
 
 // Inicializar Firebase
-const app: FirebaseApp = initializeApp(firebaseConfig);
+const app: FirebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Servicios de Firebase
-const auth: Auth = getAuth(app);
+// Inicializar servicios de Firebase condicionalmente
+let auth: Auth;
+let hasInitializedAuth = false;
+
+if (Platform.OS === 'web') {
+  auth = getAuth(app);
+} else {
+  // Usar un indicador externo para evitar múltiples inicializaciones
+  if (!hasInitializedAuth) {
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+    hasInitializedAuth = true;
+  } else {
+    auth = getAuth(app);
+  }
+}
+
 const db: Firestore = getFirestore(app);
 const storage: FirebaseStorage = getStorage(app);
 
-export { auth, db, storage, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, getDocs };
+export { auth, db, storage, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot };
