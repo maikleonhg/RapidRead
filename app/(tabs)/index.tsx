@@ -44,7 +44,7 @@ export default function HomeScreen() {
           </Pressable>
         </Link>
 
-        <Link href={"/juegos"} asChild>
+        <Link href={"/components/vistas/juegos"} asChild>
           <Pressable>
             <HomeCard
               title="Juegos / Ejercicios"

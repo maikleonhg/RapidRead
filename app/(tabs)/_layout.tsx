@@ -26,15 +26,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="juegos"
-        options={{
-          title: 'Juegos',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'game-controller' : 'game-controller-outline'} color={color} />
-          ),
-        }}
-      />
+  
       <Tabs.Screen
         name="estadisticas"
         options={{
