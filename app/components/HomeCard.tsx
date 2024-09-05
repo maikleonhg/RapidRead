@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, ViewStyle, TextStyle, Image } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons'; // Ahora usaremos Ionicons
 
 interface HomeCardProps {
   title: string;
@@ -7,20 +8,42 @@ interface HomeCardProps {
   style?: ViewStyle;
   titleStyle?: TextStyle;
   descriptionStyle?: TextStyle;
-  image: string | number;
-  imagePosition?: 'top' | 'left'; // Nuevo prop
+  image?: string | number;
+  icon?: React.ReactElement;
+  imagePosition?: 'top' | 'left';
+  iconPosition?: 'top' | 'left'; 
 }
 
-const HomeCard: React.FC<HomeCardProps> = ({ title, description, style, titleStyle, descriptionStyle, image, imagePosition = 'left' }) => {
+const HomeCard: React.FC<HomeCardProps> = ({ 
+  title, 
+  description, 
+  style, 
+  titleStyle, 
+  descriptionStyle, 
+  image, 
+  icon, 
+  imagePosition = 'left', 
+  iconPosition = 'left' 
+}) => {
   return (
     <View style={[styles.card, style]}>
-      {imagePosition === 'top' && (
+      {iconPosition === 'top' && icon && (
+        <View style={styles.iconTopContainer}>{icon}</View>
+      )}
+
+      {imagePosition === 'top' && image && (
         <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.imageTop} />
       )}
+
       <View style={styles.textContainer}>
-        {imagePosition === 'left' && (
+        {iconPosition === 'left' && icon && (
+          <View style={styles.iconLeftContainer}>{icon}</View>
+        )}
+
+        {imagePosition === 'left' && image && (
           <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.imageLeft} />
         )}
+
         <View style={styles.textWrapper}>
           <Text style={[styles.title, titleStyle]}>{title}</Text>
           {description && <Text style={[styles.description, descriptionStyle]}>{description}</Text>}
@@ -47,7 +70,7 @@ const styles = StyleSheet.create({
   },
   imageTop: {
     width: '100%',
-    height: 150, // Ajustado para no ocupar demasiado espacio
+    height: 150,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -58,11 +81,11 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   textContainer: {
-    flexDirection: 'row', // Para la imagen y el texto en la misma fila
+    flexDirection: 'row',
     alignItems: 'center',
   },
   textWrapper: {
-    flex: 1, // Para ocupar el resto del espacio disponible
+    flex: 1,
   },
   title: {
     fontSize: 18,
@@ -72,6 +95,14 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#666',
+  },
+  iconTopContainer: {
+    alignItems: 'center', 
+    marginBottom: 10,
+  },
+  iconLeftContainer: {
+    marginRight: 15, 
+    width: 60,
   },
 });
 

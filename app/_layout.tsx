@@ -49,6 +49,30 @@ export default function RootLayout() {
         <Stack.Screen name="auth/index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
+        <Stack.Screen 
+        name="components/vistas/aprende" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: '' // Cambia el título aquí
+        }}/>
+        <Stack.Screen 
+        name="components/vistas/rapidread" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: '' // Cambia el título aquí
+        }}/>
+        <Stack.Screen 
+        name="games/examen" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: '' // Cambia el título aquí
+        }}/>
+        <Stack.Screen 
+        name="components/ExerciseSecuence" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: '' // Cambia el título aquí
+        }}/>
       </Stack>
     </ThemeProvider>
   );
