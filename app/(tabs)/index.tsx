@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Platform, View, ScrollView, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import HomeCard from '@/components/HomeCard';
+import HomeCard from '@/app/components/HomeCard';
 
 export default function HomeScreen() {
+
+  const [startPractice, setStartPractice] = useState(false);
+
   return (
     <ScrollView>
     <View style={styles.titleContainer}>
@@ -12,10 +15,14 @@ export default function HomeScreen() {
            <HomeCard title="Examen PPM" description="Mide cuantas palabras lees por minuto." style={styles.examCard} image={require('../../assets/games/exercise1.jpg')} imagePosition="top"/>
           </Pressable>
       </Link>
+      <Link href={"/components/ExerciseSecuence"} asChild>
+            <Pressable>
             <HomeCard title="Practica Diaria" description="Realiza una seccion de ejercicios." image={require('../../assets/images/reloj.jpg')}/>
-            <HomeCard title="10 Minuos diarios" description="Realiza una seccion de ejercicios." image={require('../../assets/images/reloj.jpg')}/>
-            <HomeCard title="Ejercicios de Lectura Rapida" description="Realiza ejercicios de Lectura Rapida." image={require('../../assets/images/reloj.jpg')}/>
-            <HomeCard title="Ejercicios de Precision Ocular" description="Realiza una seccion de ejercicios oculares." image={require('../../assets/images/reloj.jpg')}/>
+            </Pressable>
+      </Link> 
+            <HomeCard title="Aprende algo nuevo" description="Aprende algo nuevo en 5 minutos" image={require('../../assets/images/reloj.jpg')}/>
+            <HomeCard title="Juegos / Ejercicios" description="Mejora en cada juego." image={require('../../assets/images/reloj.jpg')}/>
+            <HomeCard title="Agrega tu PDF" description="Realiza ejercicios de Lectura Rapida." image={require('../../assets/images/reloj.jpg')}/>
     </View>
     </ScrollView>
   );

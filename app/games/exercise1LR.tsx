@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Button } from "react-native";
 import Slider from "@react-native-community/slider";
-import {texts} from '../../components/textx';
+import { texts } from "../components/textx";
 
-export default function Exercise1() {
+type ExerciseProps = {
+  onExerciseEnd: () => void;
+};
+
+export default function Exercise1({ onExerciseEnd }: ExerciseProps) {
   const [index, setIndex] = useState(0);
   const [wpm, setWpm] = useState(120); 
   const [running, setRunning] = useState(true);
@@ -20,6 +24,7 @@ export default function Exercise1() {
           setIndex(index + 1);
         } else {
           clearInterval(interval);
+          if (onExerciseEnd) onExerciseEnd(); // Llamar a onExerciseEnd cuando el ejercicio termine
         }
       }, speedInMs);
     }

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Button, StyleSheet, Dimensions } from "react-native";
 import Slider from "@react-native-community/slider";
-import {texts} from '../../components/textx';
+import { texts } from '../components/textx';
 
-export default function Exercise2() {
+// Definir las propiedades que el componente va a aceptar
+interface Exercise2Props {
+  onExerciseEnd: () => void;
+}
+
+export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
   const [index, setIndex] = useState(0);
   const [wpm, setWpm] = useState(120); 
   const [running, setRunning] = useState(true);
 
   const text = texts.exam;
-
   const words = text.split(" ");
-  
+
   // Grid configuration
   const rows = 4;
   const cols = 3;
@@ -30,7 +34,7 @@ export default function Exercise2() {
           setIndex(index + 1);
         } else {
           clearInterval(interval);
-          setIndex(0); // Reinicia desde la posición 1 1 cuando se llega al final
+          if (onExerciseEnd) onExerciseEnd(); // Llamar a onExerciseEnd cuando el ejercicio termine
         }
       }, speedInMs);
     }

@@ -10,7 +10,7 @@ import { Platform } from 'react-native';  // Importa el módulo Platform
 const firebaseConfig = {
   apiKey: "AIzaSyC-JohXtcB6_6NihTR_hflXUtSeCjQWfz4",
   authDomain: Constants.manifest?.extra?.FIREBASE_AUTH_DOMAIN,
-  projectId: Constants.manifest?.extra?.FIREBASE_PROJECT_ID,
+  projectId: "rapidread-b3032",
   storageBucket: Constants.manifest?.extra?.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: Constants.manifest?.extra?.FIREBASE_MESSAGING_SENDER_ID,
   appId: Constants.manifest?.extra?.FIREBASE_APP_ID,
@@ -40,4 +40,4 @@ if (Platform.OS === 'web') {
 const db: Firestore = getFirestore(app);
 const storage: FirebaseStorage = getStorage(app);
 
-export { auth, db, storage, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot };
+export { auth, db, storage, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, };
