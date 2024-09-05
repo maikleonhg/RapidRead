@@ -20,9 +20,21 @@ export default function HomeScreen() {
             <HomeCard title="Practica Diaria" description="Realiza una seccion de ejercicios." image={require('../../assets/images/reloj.jpg')}/>
             </Pressable>
       </Link> 
+      <Link href={"/components/vistas/aprende"} asChild>
+            <Pressable>
             <HomeCard title="Aprende algo nuevo" description="Aprende algo nuevo en 5 minutos" image={require('../../assets/images/reloj.jpg')}/>
+            </Pressable>
+      </Link>
+      <Link href={"/juegos"} asChild>
+            <Pressable>
             <HomeCard title="Juegos / Ejercicios" description="Mejora en cada juego." image={require('../../assets/images/reloj.jpg')}/>
+            </Pressable>
+      </Link>
+      <Link href={"/components/vistas/rapidread"} asChild>
+            <Pressable> 
             <HomeCard title="Agrega tu PDF" description="Realiza ejercicios de Lectura Rapida." image={require('../../assets/images/reloj.jpg')}/>
+            </Pressable>
+    </Link>
     </View>
     </ScrollView>
   );
