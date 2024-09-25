@@ -8,19 +8,20 @@ type ExerciseProps = {
   onExerciseEnd: () => void;
 };
 
-export default function Exercise1({ textContent, onExerciseEnd }: ExerciseProps) {
+export default function Exercise1({textContent, onExerciseEnd }: ExerciseProps) {
   const [index, setIndex] = useState(0);
   const [wpm, setWpm] = useState(120); 
   const [running, setRunning] = useState(true);
   const words = textContent.split(" ");
+  
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
-    const speedInMs = 60000 / wpm; 
+    const speedInMs = 60000 / (wpm / 2) ; 
     if (running) {
       interval = setInterval(() => {
         if (index < words.length - 1) {
-          setIndex(index + 1);
+          setIndex(index + 2);
         } else {
           clearInterval(interval);
           if (onExerciseEnd) onExerciseEnd(); // Llamar a onExerciseEnd cuando el ejercicio termine
@@ -45,7 +46,7 @@ export default function Exercise1({ textContent, onExerciseEnd }: ExerciseProps)
       <View style={{ alignItems: "center" }}>
         <Text style={{ fontSize: 50, color: "red" }}>X</Text>
         <Text style={{ fontSize: 24, textAlign: "center", marginTop: 10 }}>
-          {words[index]}
+          {words[index]}{" "}{words[index + 1]}
         </Text>
       </View>
       <View style={{ position: "absolute", bottom: 100, width: "80%" }}>

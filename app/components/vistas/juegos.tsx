@@ -1,7 +1,7 @@
 // src/screens/GamesPage.tsx
 import React from 'react';
 import { Pressable, Text, ScrollView, StyleSheet, Platform} from 'react-native';
-import GameCard from '../Games/GameCard';
+import GameCard from '../cards/GameCard';
 import {Link} from 'expo-router'
 
 export default function GamesPage() {

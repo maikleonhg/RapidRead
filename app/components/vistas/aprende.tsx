@@ -1,7 +1,7 @@
 // src/screens/GamesPage.tsx
 import React from 'react';
 import { Pressable, Text, ScrollView, StyleSheet, Platform} from 'react-native';
-import GameCard from '../Games/GameCard';
+import GameCard from '../cards/GameCard';
 import {Link} from 'expo-router'
 
 export default function GamesPage() {
@@ -27,6 +27,11 @@ export default function GamesPage() {
             <Link href="/games/exercise4LR" asChild>
               <Pressable>
                 <GameCard title="El principe" image="https://tse3.mm.bing.net/th?id=OIG3.fezu83kSnsaUED10ZUtu&pid=ImgGn"/>
+              </Pressable>
+            </Link>
+            <Link href="./capitulos" asChild>
+              <Pressable>
+                <GameCard title="Lecciones de estoicismo" image="https://tse3.mm.bing.net/th?id=OIG3.b_q2dOZJ8ZBrlb415EMS&pid=ImgGn"/>
               </Pressable>
             </Link>
           </ScrollView>

@@ -79,6 +79,12 @@ export default function RootLayout() {
           headerShown: true, // Asegúrate de que el encabezado se muestre
           title: '' // Cambia el título aquí
         }}/>
+        <Stack.Screen 
+        name="components/vistas/capitulos" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: 'Lecciones de Estoicismo' // Cambia el título aquí
+        }}/>
       </Stack>
     </ThemeProvider>
   );
