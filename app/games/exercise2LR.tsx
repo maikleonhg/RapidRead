@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Button, StyleSheet, Dimensions } from "react-native";
 import Slider from "@react-native-community/slider";
-import { texts } from '../components/textx';
 
 // Definir las propiedades que el componente va a aceptar
 interface Exercise2Props {
+  textContent: string;
+  wpm: number;
   onExerciseEnd: () => void;
 }
 
-export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
+export default function Exercise2({ textContent, wpm, onExerciseEnd }: Exercise2Props) {
   const [index, setIndex] = useState(0);
-  const [wpm, setWpm] = useState(120); 
-  const [running, setRunning] = useState(true);
-
-  const text = texts.exam;
-  const words = text.split(" ");
+  const [wpmx, setWpm] = useState(wpm); 
+  const [running, setRunning] = useState(false);
+  const [countdown, setCountdown] = useState(3); // Nuevo estado para el contador
+  const [countdownStarted, setCountdownStarted] = useState(false);
+  const words = textContent.split(" ");
 
   // Grid configuration
   const rows = 4;
@@ -25,8 +26,23 @@ export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
   const screenHeight = Dimensions.get('window').height * 0.72;
 
   useEffect(() => {
+    if (!countdownStarted) {
+      // Comienza la cuenta regresiva cuando el componente se monta
+      setCountdownStarted(true);
+      const countdownInterval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev > 1) return prev - 1;
+          clearInterval(countdownInterval);
+          setRunning(true); // Inicia el ejercicio después de la cuenta regresiva
+          return 0;
+        });
+      }, 1000);
+    }
+  }, [countdownStarted]);
+
+  useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
-    const speedInMs = 60000 / wpm; 
+    const speedInMs = 60000 / wpmx; 
 
     if (running) {
       interval = setInterval(() => {
@@ -40,7 +56,7 @@ export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
     }
 
     return () => clearInterval(interval);
-  }, [index, running, wpm]);
+  }, [index, running, wpmx]);
 
   const handleWpmChange = (value: number) => {
     setWpm(value);
@@ -48,7 +64,9 @@ export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
 
   const handleRestart = () => {
     setIndex(0);
-    setRunning(true);
+    setCountdown(3);
+    setRunning(false);
+    setCountdownStarted(false);
   };
 
   const getGridPosition = (idx: number) => {
@@ -63,21 +81,28 @@ export default function Exercise2({ onExerciseEnd }: Exercise2Props) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      {countdown > 0 ? (
+        // Mostrar el contador de 3 segundos antes de comenzar el ejercicio
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ fontSize: 80, color: "green" }}>{countdown}</Text>
+        </View>
+      ) : (
       <View style={styles.gridContainer}>
         <View style={[styles.gridItem, getGridPosition(index)]}>
           <Text style={styles.cross}>X</Text>
           <Text style={styles.word}>{words[index]}</Text>
         </View>
       </View>
+      )}
 
       <View style={styles.sliderContainer}>
-        <Text style={styles.sliderLabel}>Velocidad: {wpm} WPM</Text>
+        <Text style={styles.sliderLabel}>Velocidad: {wpmx} WPM</Text>
         <Slider
           minimumValue={60}
           maximumValue={600}
           step={10}
-          value={wpm}
+          value={wpmx}
           onValueChange={handleWpmChange}
         />
       </View>

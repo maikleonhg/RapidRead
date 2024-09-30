@@ -50,12 +50,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
         <Stack.Screen 
-        name="components/vistas/aprende" 
-        options={{ 
-          headerShown: true, // Asegúrate de que el encabezado se muestre
-          title: '' // Cambia el título aquí
-        }}/>
-        <Stack.Screen 
         name="components/vistas/rapidread" 
         options={{ 
           headerShown: true, // Asegúrate de que el encabezado se muestre
@@ -79,11 +73,23 @@ export default function RootLayout() {
           headerShown: true, // Asegúrate de que el encabezado se muestre
           title: '' // Cambia el título aquí
         }}/>
+         <Stack.Screen 
+        name="components/vistas/aprende" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: '' // Cambia el título aquí
+        }}/>
         <Stack.Screen 
-        name="components/vistas/capitulos" 
+        name="components/capitulos/Estoicismo" 
         options={{ 
           headerShown: true, // Asegúrate de que el encabezado se muestre
           title: 'Lecciones de Estoicismo' // Cambia el título aquí
+        }}/>
+         <Stack.Screen 
+        name="components/capitulos/Apologia" 
+        options={{ 
+          headerShown: true, // Asegúrate de que el encabezado se muestre
+          title: 'Apologia de Socrates' // Cambia el título aquí
         }}/>
       </Stack>
     </ThemeProvider>

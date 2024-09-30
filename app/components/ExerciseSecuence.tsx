@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { View, Button, Text, Modal } from "react-native";
 import Exercise1 from "../games/exercise1LR"; // Importa tus ejercicios aquí
 import Exercise2 from "../games/exercise2LR";
+import {texts} from "../components/textx";
 // Importa otros ejercicios si tienes más
 
 export default function ExerciseSequence() {
   const [currentExercise, setCurrentExercise] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const text = texts.text1.content;
 
   const exercises = [
-    <Exercise1 onExerciseEnd={() => {}} />, 
-    <Exercise2 onExerciseEnd={() => {}} /> 
-    // Agrega más ejercicios aquí
+    <Exercise1 onExerciseEnd={() => {}} wpm={250} textContent={text} />, 
+    <Exercise2 onExerciseEnd={() => {}} wpm={250} textContent={text} />
   ];
 
   const handleNextExercise = () => {

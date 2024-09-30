@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons'; // Aquí usamos Ionicons
-import HomeCard from '@/app/components/HomeCard';
+import HomeCard from '@/app/components/cards/HomeCard';
 
 export default function HomeScreen() {
   const [startPractice, setStartPractice] = useState(false);

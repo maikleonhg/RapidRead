@@ -4,7 +4,7 @@ import { texts } from '../components/textx';
 import { auth, db, collection, addDoc } from '../firebase';
 
 export default function Examen() {
-    const text = texts.exam;
+    const text = texts.exam.content;
     const wordCount = 398;
 
     const [startTime, setStartTime] = useState<number | null>(null);

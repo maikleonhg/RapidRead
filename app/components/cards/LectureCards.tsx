@@ -1,26 +1,18 @@
 // src/components/GameCard.tsx
 import React from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 interface GameCardProps {
   title: string;
   image: string | number;
-  exerciseType: string;  // Tipo de ejercicio
-  textContent: string;
-  onPress: () => void;   // Contenido del texto
 }
 
-const GameCard = ({ title, image, onPress }: GameCardProps) => {
+const GameCard = ({ title, image }: GameCardProps) => {
   return (
-    <Pressable onPress={() => {
-      onPress();
-    }}>
-      <View style={styles.card}>
-        <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.image} />
-        <Text style={styles.title}>{title}</Text>
-      </View>
-      </Pressable>
-
+    <View style={styles.card}>
+      <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.image} />
+      <Text style={styles.title}>{title}</Text>
+    </View>
   );
 };
 

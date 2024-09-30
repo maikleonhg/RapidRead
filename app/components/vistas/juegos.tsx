@@ -1,92 +1,168 @@
 // src/screens/GamesPage.tsx
-import React from 'react';
-import { Pressable, Text, ScrollView, StyleSheet, Platform} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Platform, Button} from 'react-native';
 import GameCard from '../cards/GameCard';
-import {Link} from 'expo-router'
+import ExerciseWrapper from '../ExerciseWrapper'
+import { texts } from '../../components/textx';
+
+type Exercise = {
+  exerciseType: string;
+  textContent: string;
+};
 
 export default function GamesPage() {
+
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+  const handleExerciseSelect = (exerciseType: string, textContent: string) => {
+    setSelectedExercise({ exerciseType, textContent });
+  };
+
+  const handleBackToChapters = () => {
+    setSelectedExercise(null); // Volver a los capítulos
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.sectionTitle}>Precisión Ocular</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      {selectedExercise ? (
+      <View style={{ flex: 1, width: '100%' }}>
+          <Button title="Volver a los juegos" onPress={handleBackToChapters} />
+      <ExerciseWrapper
+          exerciseType={selectedExercise.exerciseType}
+          textContent={selectedExercise.textContent}
+          wpm={250}
+          onExerciseEnd={() => setSelectedExercise(null)} // Resetear después de terminar el ejercicio
+        />
+        </View>
+      ) : (
+        <ScrollView contentContainerStyle={styles.container}>
+          <Text style={styles.sectionTitle}>Precisión Ocular</Text>
           <ScrollView horizontal>
-            <Link href="/games/exercise1LR" asChild>
-              <Pressable>
-                <GameCard title="Palabra con la X" image={require('../../../assets/games/1.jpg')}/>
-              </Pressable>
-            </Link>
-            <Link href="/games/exercise2LR" asChild>
-              <Pressable>
-                <GameCard title="Sigue la X" image={require('../../../assets/games/2.jpg')}/>
-              </Pressable>
-            </Link>
-            <Link href="/games/exercise3LR" asChild>
-              <Pressable>
-                <GameCard title="Palabra cortada" image={require('../../../assets/games/3.jpg')}/>
-              </Pressable>
-            </Link>
-            <Link href="/games/exercise4LR" asChild>
-              <Pressable>
-                <GameCard title="Texto Cortado" image={require('../../../assets/games/3.jpg')}/>
-              </Pressable>
-            </Link>
+            <GameCard
+              title="Palabra con la X"
+              image={require('../../../assets/games/1.jpg')}
+              exerciseType="exercise1" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise1", texts.text1.content)}
+            />
+            <GameCard
+              title="X en Movimiento"
+              image={require('../../../assets/games/2.jpg')}
+              exerciseType="exercise2" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise2", texts.text1.content)}
+            />
+            <GameCard
+              title="Palabra cortada"
+              image={require('../../../assets/games/3.jpg')}
+              exerciseType="exercise3" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise3", texts.text1.content)}
+            />
+            <GameCard
+              title="2 Palabras"
+              image={require('../../../assets/games/4.jpg')}
+              exerciseType="twoWords" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("twoWords", texts.text1.content)}
+            />
           </ScrollView>
-
-      <Text style={styles.sectionTitle}>Visión Periférica</Text>
-        <ScrollView horizontal>
-              <Link href="/games/exercise5LR" asChild>
-                <Pressable>
-                <GameCard title="2 Palabras" image={require('../../../assets/games/4.jpg')}/>
-                </Pressable>
-              </Link>
-            <Link href="/games/exercise6LR" asChild>
-              <Pressable>
-                <GameCard title="2 en movimiento" image={require('../../../assets/games/5.jpg')}/>
-              </Pressable>
-            </Link>
-            <Link href="/games/exercise7LR" asChild>
-              <Pressable>
-                <GameCard title="4 en movimiento" image={require('../../../assets/games/6.jpg')}/>
-              </Pressable>
-            </Link>
-            <Link href="/games/exercise8LR" asChild>
-              <Pressable>
-                <GameCard title="2 Arriba abajo" image={require('../../../assets/games/7.jpg')}/>
-              </Pressable>
-            </Link>
-            </ScrollView>
-
-      <Text style={styles.sectionTitle}>Lectura Rápida</Text>
-        <ScrollView horizontal>
-              <Link href="/games/exercise9LR" asChild>
-                <Pressable>
-                <GameCard title="4 en movimiento" image={require('../../../assets/games/8.jpg')}/>
-                </Pressable>
-              </Link>
-            <Link href="/games/exercise2LR" asChild>
-              <Pressable>
-                <GameCard title="Ejercicio" image={require('../../../assets/games/1.jpg')}/>
-              </Pressable>
-            </Link>
-              <GameCard title="Ejercicio" image={require('../../../assets/games/2.jpg')} />
-              <GameCard title="Ejercicio" image={require('../../../assets/games/3.jpg')} />
-            </ScrollView>
-
-      <Text style={styles.sectionTitle}>Apagar el Subconsciente</Text>
-        <ScrollView horizontal>
-              <Link href="/games/exercise1LR" asChild>
-                <Pressable>
-                <GameCard title="Ejercicio" image={require('../../../assets/games/1.jpg')}/>
-                </Pressable>
-              </Link>
-            <Link href="/games/exercise2LR" asChild>
-              <Pressable>
-                <GameCard title="Ejercicio" image={require('../../../assets/games/3.jpg')}/>
-              </Pressable>
-            </Link>
-              <GameCard title="Ejercicio" image={require('../../../assets/games/7.jpg')} />
-              <GameCard title="Ejercicio" image={require('../../../assets/games/8.jpg')}/>
-            </ScrollView>
-      </ScrollView>
+          <Text style={styles.sectionTitle}>Precisión Ocular</Text>
+          <ScrollView horizontal>
+            <GameCard
+              title="Palabra con la X"
+              image={require('../../../assets/games/1.jpg')}
+              exerciseType="exercise1" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise1", texts.text1.content)}
+            />
+            <GameCard
+              title="X en Movimiento"
+              image={require('../../../assets/games/2.jpg')}
+              exerciseType="exercise2" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise2", texts.text1.content)}
+            />
+            <GameCard
+              title="Palabra cortada"
+              image={require('../../../assets/games/3.jpg')}
+              exerciseType="exercise3" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise3", texts.text1.content)}
+            />
+            <GameCard
+              title="2 Palabras"
+              image={require('../../../assets/games/4.jpg')}
+              exerciseType="twoWords" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("twoWords", texts.text1.content)}
+            />
+          </ScrollView>
+          <Text style={styles.sectionTitle}>Precisión Ocular</Text>
+          <ScrollView horizontal>
+            <GameCard
+              title="Palabra con la X"
+              image={require('../../../assets/games/1.jpg')}
+              exerciseType="exercise1" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise1", texts.text1.content)}
+            />
+            <GameCard
+              title="X en Movimiento"
+              image={require('../../../assets/games/2.jpg')}
+              exerciseType="exercise2" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise2", texts.text1.content)}
+            />
+            <GameCard
+              title="Palabra cortada"
+              image={require('../../../assets/games/3.jpg')}
+              exerciseType="exercise3" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise3", texts.text1.content)}
+            />
+            <GameCard
+              title="2 Palabras"
+              image={require('../../../assets/games/4.jpg')}
+              exerciseType="twoWords" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("twoWords", texts.text1.content)}
+            />
+          </ScrollView>
+          <Text style={styles.sectionTitle}>Precisión Ocular</Text>
+          <ScrollView horizontal>
+            <GameCard
+              title="Palabra con la X"
+              image={require('../../../assets/games/1.jpg')}
+              exerciseType="exercise1" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise1", texts.text1.content)}
+            />
+            <GameCard
+              title="X en Movimiento"
+              image={require('../../../assets/games/2.jpg')}
+              exerciseType="exercise2" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise2", texts.text1.content)}
+            />
+            <GameCard
+              title="Palabra cortada"
+              image={require('../../../assets/games/3.jpg')}
+              exerciseType="exercise3" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("exercise3", texts.text1.content)}
+            />
+            <GameCard
+              title="2 Palabras"
+              image={require('../../../assets/games/4.jpg')}
+              exerciseType="twoWords" // Tipo de ejercicio asociado
+              textContent={texts.text1.content}
+              onPress={() => handleExerciseSelect("twoWords", texts.text1.content)}
+            />
+          </ScrollView>
+        </ScrollView>
+      )}
+      </View>
+      
   );
 }
 
